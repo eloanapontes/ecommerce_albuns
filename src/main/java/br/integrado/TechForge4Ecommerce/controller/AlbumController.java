@@ -26,14 +26,12 @@ public class AlbumController {
     @Autowired
     private ArtistaRepository artistaRepository;
 
-    // Recupera todos os álbuns
     @GetMapping
     public ResponseEntity<List<Album>> findAll() {
         List<Album> albuns = albumRepository.findAll();
         return ResponseEntity.ok(albuns);
     }
 
-    // Recupera um álbum pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<Album> findById(@PathVariable Integer id) {
         return albumRepository.findById(id)
@@ -41,34 +39,25 @@ public class AlbumController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Cria um novo álbum
     @PostMapping
     public ResponseEntity<Album> createAlbum(@RequestBody Album albumRequest) {
-        // Recupera a Categoria e o Artista pelos IDs fornecidos no corpo da requisição
         Categoria categoria = categoriaRepository.findById(albumRequest.getId_categoria().getId_categoria())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         Artista artista = artistaRepository.findById(albumRequest.getId_artista().getIdArtista())
                 .orElseThrow(() -> new RuntimeException("Artista não encontrado"));
 
-        // Cria o objeto Album e associa as entidades
         Album album = new Album();
         album.setNome(albumRequest.getNome());
         album.setDescricao(albumRequest.getDescricao());
         album.setValor(albumRequest.getValor());
         album.setQuantidade(albumRequest.getQuantidade());
-        album.setId_categoria(categoria);  // Associa a categoria
-        album.setId_artista(artista);      // Associa o artista
+        album.setId_categoria(categoria);
+        album.setId_artista(artista);
 
-        // Salva o álbum no banco de dados
         Album savedAlbum = albumRepository.save(album);
 
-        // Retorna o álbum recém-criado
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAlbum);
     }
-
-
-
-    // Atualiza um álbum existente
     @PutMapping("/{id}")
     public ResponseEntity<Album> updateAlbum(@PathVariable Integer id, @RequestBody Album albumDetails) {
         return albumRepository.findById(id)
@@ -85,7 +74,6 @@ public class AlbumController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Deleta um álbum
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlbum(@PathVariable Integer id) {
         if (albumRepository.existsById(id)) {

@@ -1,6 +1,6 @@
 package br.integrado.TechForge4Ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore; // Importando a anotação
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,9 +17,8 @@ public class Categoria {
     @Column(name = "nome_categoria", nullable = false)
     private String nome_categoria;
 
-    // Utilizando @JsonIgnore para ignorar o campo albums na serialização
     @JsonIgnore
-    @OneToMany(mappedBy = "id_categoria") // Mapeamento correto para refletir a associação com Album
+    @OneToMany(mappedBy = "id_categoria")
     private List<Album> albums;
 
     // Getters e setters

@@ -2,11 +2,10 @@ package br.integrado.TechForge4Ecommerce.model;
 
 import jakarta.persistence.*;
 
-@Entity //diz ao JPA que a classe vai ser tratada pelo EntityManager que vai entender que pode ser manipulada pelo JPA pra update insert e etc
-@Table
+@Entity
 public class Artista {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // tipo id que é pk que vai gerar automaticamente
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idArtista;
 
     @Column
