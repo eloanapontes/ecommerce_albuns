@@ -16,14 +16,12 @@ public class AlbumController {
     @Autowired
     private AlbumRepository albumRepository;
 
-    // Buscar todos os álbuns
     @GetMapping
     public ResponseEntity<List<Album>> finAll() {
         List<Album> albuns = albumRepository.findAll();
         return ResponseEntity.ok(albuns);
     }
 
-    // Buscar álbum por ID
     @GetMapping("/{id}")
     public ResponseEntity<Album> findbyId(@PathVariable Integer id) {
         return albumRepository.findById(id)
@@ -54,7 +52,7 @@ public class AlbumController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Excluir álbum
+    // deleta álbum
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlbum(@PathVariable Integer id) {
         if (albumRepository.existsById(id)) {

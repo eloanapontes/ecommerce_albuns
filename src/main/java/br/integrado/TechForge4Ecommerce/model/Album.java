@@ -2,6 +2,7 @@ package br.integrado.TechForge4Ecommerce.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "Album")
@@ -31,6 +32,10 @@ public class Album {
 
     @Column(name = "quantidade")
     private Integer quantidade;
+
+    // relacionamento com AlbumPedido
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlbumPedido> albumPedidos;
 
     public Integer getId_album() {
         return id_album;
@@ -86,5 +91,13 @@ public class Album {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public List<AlbumPedido> getAlbumPedidos() {
+        return albumPedidos;
+    }
+
+    public void setAlbumPedidos(List<AlbumPedido> albumPedidos) {
+        this.albumPedidos = albumPedidos;
     }
 }
