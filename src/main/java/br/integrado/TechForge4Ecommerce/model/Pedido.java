@@ -1,42 +1,42 @@
 package br.integrado.TechForge4Ecommerce.model;
 
-
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "Pedido")
+@Table(name = "pedido")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column()
-    private Integer id_pedido;
+    @Column(name = "id_pedido")
+    private Integer idPedido;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido")
     private List<AlbumPedido> albuns;
 
-    @Column(name = "valor_total", nullable = false)
-    private Double valorTotal;
+    @Column(name = "valor_total")
+    private BigDecimal valorTotal;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "data_pedido", nullable = false)
+    @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
 
-    // Getters e Setters
     public Integer getIdPedido() {
-        return id_pedido;
+        return idPedido;
     }
 
     public void setIdPedido(Integer idPedido) {
-        this.id_pedido = idPedido;
+        this.idPedido = idPedido;
     }
 
     public Cliente getCliente() {
@@ -55,11 +55,11 @@ public class Pedido {
         this.albuns = albuns;
     }
 
-    public Double getValorTotal() {
+    public BigDecimal  getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(Double valorTotal) {
+    public void setValorTotal(BigDecimal  valorTotal) {
         this.valorTotal = valorTotal;
     }
 

@@ -26,8 +26,10 @@ public class ClienteController {
 
     @PostMapping
     public Cliente create(@RequestBody Cliente cliente) {
+        // O id_cliente não deve ser enviado no corpo da requisição, pois será gerado automaticamente
         return clienteRepository.save(cliente);
     }
+
 
     @PutMapping("/{id}")
     public Cliente update(@PathVariable Integer id, @RequestBody Cliente cliente) {

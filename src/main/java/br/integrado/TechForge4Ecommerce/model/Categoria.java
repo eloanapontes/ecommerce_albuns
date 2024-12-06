@@ -1,16 +1,35 @@
 package br.integrado.TechForge4Ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore; // Importando a anotação
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table
+@Table(name = "Categoria")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
     private Integer id_categoria;
 
-    @Column
+    @Column(name = "nome_categoria", nullable = false)
     private String nome_categoria;
+
+    // Utilizando @JsonIgnore para ignorar o campo albums na serialização
+    @JsonIgnore
+    @OneToMany(mappedBy = "id_categoria") // Mapeamento correto para refletir a associação com Album
+    private List<Album> albums;
+
+    // Getters e setters
+    public Integer getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(Integer id_categoria) {
+        this.id_categoria = id_categoria;
+    }
 
     public String getNome_categoria() {
         return nome_categoria;
@@ -20,12 +39,11 @@ public class Categoria {
         this.nome_categoria = nome_categoria;
     }
 
-    public Integer getId_categoria() {
-        return id_categoria;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setId_categoria(Integer id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
     }
-
 }
