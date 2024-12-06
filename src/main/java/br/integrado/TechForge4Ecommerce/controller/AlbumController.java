@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/albuns")
+@RequestMapping("/api/album")
 public class AlbumController {
 
     @Autowired
@@ -18,14 +18,14 @@ public class AlbumController {
 
     // Buscar todos os álbuns
     @GetMapping
-    public ResponseEntity<List<Album>> getAllAlbuns() {
+    public ResponseEntity<List<Album>> finAll() {
         List<Album> albuns = albumRepository.findAll();
         return ResponseEntity.ok(albuns);
     }
 
     // Buscar álbum por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Album> getAlbumById(@PathVariable Integer id) {
+    public ResponseEntity<Album> findbyId(@PathVariable Integer id) {
         return albumRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
